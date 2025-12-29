@@ -1,39 +1,498 @@
 <html lang="ms">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Tingkatkan kerjaya masakan anda dengan Program Kemahiran Kulinari Diiktiraf IKHTISAS. Latihan amali, pensijilan JPK, dan bimbingan pakar. Daftar sekarang!">
-    <meta name="keywords"
-        content="latihan kulinari, sijil kemahiran malaysia, culinary arts, ikhtisas, kursus masakan, SKM tahap 2, SKM tahap 3">
+    <meta name="description" content="Maklumat Program Pusat Latihan Kemahiran IKHTISAS - Program latihan kemahiran terbaik.">
     <title>Pusat Latihan Kemahiran Ikhtisas</title>
-
+    
     <!-- Favicon -->
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    
     <!-- Custom Styles -->
     <link rel="stylesheet" href="css/style.css">
-
+    
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
+    
     <!-- AOS Animation -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 
     <!-- Google Fonts -->
-    <!-- Modern Fonts (Outfit + Plus Jakarta Sans) -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Custom modern styles are now in css/style.css -->
+    <style>
+        :root {
+            --primary: #2563eb;      /* Modern blue */
+            --primary-dark: #1d4ed8;
+            --secondary: #7c3aed;    /* Modern purple */
+            --accent: #06b6d4;       /* Modern cyan */
+            --text-dark: #1e293b;
+            --text-light: #f8fafc;
+            --background: #ffffff;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+		        /* Header Fix */
+        #header {
+            max-height: 100px;
+            padding: 10px 0 !important;
+            margin: 0 !important;
+            overflow: hidden;
+            background: var(--gradient);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        #header.scrolled {
+            padding: 5px 0 !important;
+            background: var(--primary);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-light) !important;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--text-light) !important;
+            margin: 0 10px;
+            padding: 8px 16px !important;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--text-light) !important;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: var(--text-light) !important;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-primary {
+            background-color: var(--text-light) !important;
+            color: var(--primary) !important;
+            border: none !important;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: rgba(255, 255, 255, 0.9) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.5) !important;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+        }
+		        /* Hero Section */
+        .hero-section {
+            padding-top: 100px;
+            min-height: 100vh;
+            background: var(--gradient);
+            position: relative;
+            overflow: hidden;
+            color: var(--text-light);
+        }
+
+        .hero-content {
+            padding: 80px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .hero-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: var(--text-light);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .hero-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            color: var(--primary-dark);
+        }
+		        /* Carousel Styles */
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.7;
+        }
+
+        .carousel-control-prev {
+            left: 10px;
+        }
+
+        .carousel-control-next {
+            right: 10px;
+        }
+
+        .carousel-control-prev:hover,
+        .carousel-control-next:hover {
+            opacity: 1;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .carousel .hero-image {
+            height: 400px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--background);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+		        /* Chatbot Styles */
+        .chatbot-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 65px;
+            height: 65px;
+            background: var(--text-light);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .chatbot-button:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .chatbot-container {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 350px;
+            height: 500px;
+            background: var(--background);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        .chatbot-header {
+            background: var(--gradient);
+            color: var(--text-light);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-button {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .close-button:hover {
+            transform: scale(1.1);
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            max-width: 80%;
+            padding: 12px 15px;
+            border-radius: 15px;
+            clear: both;
+        }
+
+        .message.bot {
+            background: #f0f2f5;
+            color: var(--text-dark);
+            float: left;
+            border-bottom-left-radius: 5px;
+        }
+
+        .message.user {
+            background: var(--primary);
+            color: var(--text-light);
+            float: right;
+            border-bottom-right-radius: 5px;
+        }
+
+        .chatbot-input {
+            padding: 15px;
+            border-top: 1px solid #eee;
+            display: flex;
+            background: var(--background);
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            margin-right: 10px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-input input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+        }
+
+        .chatbot-input button {
+            background: var(--primary);
+            color: var(--text-light);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-input button:hover {
+            transform: scale(1.1);
+        }
+
+        .typing-animation {
+            display: flex;
+            gap: 5px;
+        }
+
+        .typing-animation span {
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: typing 1s infinite ease-in-out;
+        }
+
+        .typing-animation span:nth-child(1) { animation-delay: 0.2s; }
+        .typing-animation span:nth-child(2) { animation-delay: 0.4s; }
+        .typing-animation span:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes typing {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+        }
+		        /* Footer Styles */
+        .footer {
+            background: var(--text-dark);
+            color: var(--text-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(0,0,0,0) 100%);
+            pointer-events: none;
+        }
+
+        .text-light-gray {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-light);
+            transform: translateX(5px);
+        }
+
+        .footer-contact {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-contact li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .footer-contact i {
+            color: var(--primary);
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+
+        .footer-contact a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-contact a:hover {
+            color: var(--text-light);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            color: var(--text-light);
+            transform: translateY(-3px);
+        }
+
+        .footer-divider {
+            border-color: rgba(255, 255, 255, 0.1);
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .footer-company {
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
-
-<body>
+	<body>
     <!-- Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loader"></div>
@@ -51,6 +510,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
+					</li>
                     <li class="nav-item">
                         <a class="nav-link" href="profile.html">Profil</a>
                     </li>
@@ -67,7 +527,7 @@
                         <a class="nav-link" href="contact.html">Hubungi Kami</a>
                     </li>
                 </ul>
-                <a href="daftar.html" class="btn btn-primary rounded-pill px-4 py-2">Daftar Kursus Profesional</a>
+                <a href="daftar.html" class="btn btn-primary rounded-pill px-4 py-2">Daftar Sekarang</a>
             </div>
         </div>
     </nav>
@@ -77,44 +537,31 @@
         <div class="container">
             <div class="row align-items-center hero-content">
                 <div class="col-lg-6" data-aos="fade-right" data-aos-duration="1000">
-                    <h1 class="hero-title">Kemahiran Kulinari Diiktiraf untuk Melonjakkan Kerjaya Anda</h1>
-                    <p class="hero-subtitle">Sertai program kami hari ini! Pusat latihan berkemahiran yang menawarkan
-                        program kulinari berorientasikan kemahiran yang diiktiraf oleh Jabatan Pembangunan Kemahiran.
-                    </p>
-                    <div class="d-flex flex-wrap gap-3">
-                        <a href="program.html" class="hero-button">
-                            Dapatkan Jadual & Harga
-                            <i class="fas fa-arrow-right ms-2"></i>
-                        </a>
-                        <a href="contact.html" class="btn btn-outline-light rounded-pill px-4 py-3 fw-bold"
-                            style="border: 2px solid rgba(255,255,255,0.5); backdrop-filter: blur(5px);">
-                            Konsultasi Percuma
-                        </a>
-                    </div>
+                    <h1 class="hero-title">Selamat Datang ke Ikhtisas🧑‍🍳👩‍🍳</h1>
+                    <p class="hero-subtitle">Pusat latihan berkemahiran yang menawarkan program kulinari berorientasikan kemahiran yang diiktiraf oleh Jabatan Pembangunan Kemahiran</p>
+                    <a href="program.html" class="hero-button">
+                        Terokai Program Kami
+                        <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
                 </div>
                 <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
                     <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img src="assets/hero-image-1.jpg" alt="Pelajar Kulinari Ikhtisas Sedang Memasak"
-                                    class="hero-image" loading="eager">
+                                <img src="assets/hero-image-1.jpg" alt="IKHTISAS Training 1" class="hero-image">
                             </div>
                             <div class="carousel-item">
-                                <img src="assets/hero-image-2.png" alt="Sesi Pembelajaran Masakan Barat"
-                                    class="hero-image" loading="lazy">
+                                <img src="assets/hero-image-2.png" alt="IKHTISAS Training 2" class="hero-image">
                             </div>
                             <div class="carousel-item">
-                                <img src="assets/hero-image-3.jpg" alt="Demonstrasi Penyediaan Makanan"
-                                    class="hero-image" loading="lazy">
+                                <img src="assets/hero-image-3.jpg" alt="IKHTISAS Training 3" class="hero-image">
                             </div>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel"
-                            data-bs-slide="prev">
+                        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel"
-                            data-bs-slide="next">
+                        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
@@ -123,7 +570,7 @@
             </div>
         </div>
     </section>
-    <!-- Footer -->
+		    <!-- Footer -->
     <footer class="footer mt-5">
         <div class="container">
             <div class="row py-5">
@@ -131,8 +578,7 @@
                     <div class="footer-company pe-lg-5">
                         <img src="assets/logo.jpg" alt="IKHTISAS Logo" height="50" class="mb-4">
                         <h5 class="text-white mb-3">Pusat Latihan Kemahiran Ikhtisas</h5>
-                        <p class="text-light-gray">Menyediakan program latihan kemahiran berkualiti tinggi untuk
-                            membentuk profesional masa hadapan.</p>
+                        <p class="text-light-gray">Menyediakan program latihan kemahiran berkualiti tinggi untuk membentuk profesional masa hadapan.</p>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-6 mb-4">
@@ -150,8 +596,7 @@
                     <ul class="footer-contact">
                         <li>
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>103-2, Lorong Haruan 5/4, Oakland Commerce Square, 70300 Seremban, Negeri
-                                Sembilan</span>
+                            <span>103-2, Lorong Haruan 5/4, Oakland Commerce Square, 70300 Seremban, Negeri Sembilan</span>
                         </li>
                         <li>
                             <i class="fas fa-phone"></i>
@@ -169,31 +614,26 @@
                         <a href="https://wa.me/60196635250" target="_blank" class="social-link">
                             <i class="fab fa-whatsapp"></i>
                         </a>
-                        <a href="https://www.facebook.com/pusatkemahiranikhtisas.ikhtisas" target="_blank"
-                            class="social-link">
+                        <a href="https://www.facebook.com/pusatkemahiranikhtisas.ikhtisas" target="_blank" class="social-link">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a href="http://tiktok.com/place/Pusat-Latihan-Kemahiran-Ikhtisas-22535865208466561?language=en"
-                            target="_blank" class="social-link">
+                        <a href="http://tiktok.com/place/Pusat-Latihan-Kemahiran-Ikhtisas-22535865208466561?language=en" target="_blank" class="social-link">
                             <i class="fab fa-tiktok"></i>
                         </a>
-                        <a href="https://www.youtube.com/@pusatlatihankemahiranikhti6817" target="_blank"
-                            class="social-link">
+                        <a href="https://www.youtube.com/@pusatlatihankemahiranikhti6817" target="_blank" class="social-link">
                             <i class="fab fa-youtube"></i>
                         </a>
                     </div>
                 </div>
             </div>
             <hr class="footer-divider">
-            <div class="footer-bottom py-3">
-                <div class="row align-items-center">
-                    <div class="col-md-6 text-center text-md-start">
-                        <p class="mb-0 text-light-gray">© 2025 IKHTISAS. Hak Cipta Terpelihara.</p>
-                    </div>
-                    <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
-                        <a href="#" class="text-light-gray me-3">Dasar Privasi</a>
-                        <a href="#" class="text-light-gray">Terma & Syarat</a>
-                    </div>
+            <div class="row py-3">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0 text-light-gray">© 2025 IKHTISAS. Hak Cipta Terpelihara.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-light-gray me-3">Dasar Privasi</a>
+                    <a href="#" class="text-light-gray">Terma & Syarat</a>
                 </div>
             </div>
         </div>
@@ -222,12 +662,12 @@
             </button>
         </div>
     </div>
-    <!-- Scripts -->
+		    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             // Initialize AOS
             AOS.init({
                 duration: 1000,
@@ -235,12 +675,12 @@
             });
 
             // Loading screen
-            setTimeout(function () {
+            setTimeout(function() {
                 document.getElementById("loadingScreen").classList.add("hidden");
             }, 1500);
 
             // Header scroll effect
-            window.addEventListener('scroll', function () {
+            window.addEventListener('scroll', function() {
                 if (window.scrollY > 50) {
                     document.getElementById('header').classList.add('scrolled');
                 } else {
@@ -337,15 +777,15 @@
                         'lokasi': 'Kami terletak di 103-2, Lorong Haruan 5/4, OAKLAND COMMERCE SQUARE, 70300 Seremban, Negeri Sembilan',
                         'hubungi': 'Anda boleh menghubungi kami di talian 019-663 5250 atau email ikhtisasvc@gmail.com',
                         'terima kasih': 'Sama-sama! Semoga anda berjaya mendapat tempat di Ikhtisas!',
-                        'tq': 'Sama-sama! Semoga anda berjaya mendapat tempat di Ikhtisas!',
-                        'Tq': 'Sama-sama! Semoga anda berjaya mendapat tempat di Ikhtisas!',
+						'tq': 'Sama-sama! Semoga anda berjaya mendapat tempat di Ikhtisas!',
+						'Tq': 'Sama-sama! Semoga anda berjaya mendapat tempat di Ikhtisas!',
                     };
 
                     const lowerInput = input.toLowerCase();
                     for (const [key, response] of Object.entries(responses)) {
                         if (lowerInput.includes(key)) return response;
                     }
-
+                    
                     return 'Maaf, saya tidak dapat memahami pertanyaan anda. Boleh anda jelaskan dengan lebih terperinci?';
                 }
             };
@@ -354,5 +794,4 @@
         });
     </script>
 </body>
-
 </html>
