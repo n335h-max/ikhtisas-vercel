@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Borang Pendaftaran Pusat Latihan Kemahiran IKHTISAS">
+    <title>Borang Pendaftaran - Pusat Latihan Kemahiran IKHTISAS</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+
+    <!-- CSS Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #7c3aed;
+            --accent: #06b6d4;
+            --text-dark: #1e293b;
+            --text-light: #f8fafc;
+            --background: #ffffff;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            padding-top: 80px;
+            margin: 0;
+            background: #f8fafc;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 6px solid rgba(255,255,255,0.3);
+            border-top: 6px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Header Styles */
+        #header {
+            max-height: 100px;
+            padding: 10px 0 !important;
+            margin: 0 !important;
+            overflow: hidden;
+            background: var(--gradient);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        #header.scrolled {
+            padding: 5px 0 !important;
+            background: var(--primary);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-light) !important;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--text-light) !important;
+            margin: 0 10px;
+            padding: 8px 16px !important;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--text-light) !important;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: var(--text-light) !important;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.5) !important;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+        }
+
+        .btn-primary {
+            background-color: var(--text-light) !important;
+            color: var(--primary) !important;
+            border: none !important;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: rgba(255, 255, 255, 0.9) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Form Styles */
+        .form-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .form-box {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            color: inherit;
+        }
+
+        .form-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .form-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .form-icon i {
+            font-size: 30px;
+            color: white;
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .form-description {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .form-button {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-button:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: var(--text-dark);
+            color: var(--text-light);
+            padding: 60px 0 30px;
+            margin-top: 60px;
+            width: 100%;
+            position: relative;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-divider {
+            border-color: rgba(255, 255, 255, 0.1);
+            margin: 2rem 0;
+        }
+
+        .text-light-gray {
+            color: rgba(255, 255, 255, 0.7);
+        }
+    </style>
+</head>
+	<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg fixed-top" id="header">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="assets/logo.jpg" alt="IKHTISAS Logo" height="40" class="me-2">
+                IKHTISAS
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">Profil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="program.html">Program</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gallery.html">Galeri</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="videos.html">Video</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Hubungi Kami</a>
+                    </li>
+                </ul>
+                <a href="daftar.html" class="btn btn-primary rounded-pill px-4 py-2">Daftar Sekarang</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container form-container">
+        <h1 class="text-center mb-5">Borang Pendaftaran</h1>
+        
+        <div class="row">
+            <!-- Level 2 Form Box -->
+            <div class="col-md-6 mb-4">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSc0rPy9c-0BTExW1dqVcHuRcXSOI8X-7ZgqmWZrrA9uvwsaoA/viewform" 
+                   target="_blank" 
+                   class="form-box">
+                    <div class="form-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3 class="form-title">Level 2 - Penyediaan dan Pembuatan Makanan</h3>
+                    <p class="form-description">
+                        Borang Permohonan Temuduga Kursus SKM Penyediaan dan Pembuatan Makanan I561-005-2:2022
+                    </p>
+                    <button class="form-button">
+                        Isi Borang <i class="fas fa-arrow-right"></i>
+                    </button>
+                </a>
+            </div>
+
+            <!-- Level 3 Form Box -->
+            <div class="col-md-6 mb-4">
+                <a href="https://forms.gle/uoqA2aKrffepSBe8A" 
+                   target="_blank" 
+                   class="form-box">
+                    <div class="form-icon">
+                        <i class="fas fa-mortar-pestle"></i>
+                    </div>
+                    <h3 class="form-title">Level 3 - Operasi Seni Kulinari</h3>
+                    <p class="form-description">
+                        Borang Permohonan Temuduga Kursus SKM Operasi Seni Kulinari I561-005-3:2022
+                    </p>
+                    <button class="form-button">
+                        Isi Borang <i class="fas fa-arrow-right"></i>
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row py-5">
+                <div class="col-lg-4 mb-4">
+                    <div class="footer-company pe-lg-5">
+                        <img src="assets/logo.jpg" alt="IKHTISAS Logo" height="50" class="mb-4">
+                        <h5 class="text-white mb-3">Pusat Latihan Kemahiran Ikhtisas</h5>
+                        <p class="text-light-gray">Menyediakan program latihan kemahiran berkualiti tinggi untuk membentuk profesional masa hadapan.</p>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5 class="text-white mb-4">Pautan Pantas</h5>
+                    <ul class="footer-links">
+                        <li><a href="profile.html">Profil</a></li>
+                        <li><a href="program.html">Program</a></li>
+                        <li><a href="gallery.html">Galeri</a></li>
+                        <li><a href="videos.html">Video</a></li>
+                        <li><a href="contact.html">Hubungi Kami</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="text-white mb-4">Maklumat Hubungan</h5>
+                    <ul class="footer-links">
+                        <li>
+                            <i class="fas fa-map-marker-alt me-2"></i>
+                            103-2, Lorong Haruan 5/4, Oakland Commerce Square, 70300 Seremban, Negeri Sembilan
+                        </li>
+                        <li>
+                            <i class="fas fa-phone me-2"></i>
+                            <a href="tel:+60196635250">+60 19-663 5250</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope me-2"></i>
+                            <a href="mailto:ikhtisasvc@gmail.com">ikhtisasvc@gmail.com</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-white mb-4">Ikuti Kami</h5>
+                    <div class="social-links">
+                        <a href="https://wa.me/60196635250" target="_blank" class="social-link">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://www.facebook.com/pusatkemahiranikhtisas.ikhtisas" target="_blank" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="http://tiktok.com/place/Pusat-Latihan-Kemahiran-Ikhtisas-22535865208466561?language=en" target="_blank" class="social-link">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@pusatlatihankemahiranikhti6817" target="_blank" class="social-link">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <hr class="footer-divider">
+            <div class="row py-3">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0 text-light-gray">© 2025 IKHTISAS. Hak Cipta Terpelihara.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-light-gray me-3">Dasar Privasi</a>
+                    <a href="#" class="text-light-gray">Terma & Syarat</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Loading screen
+            setTimeout(() => {
+                const loadingScreen = document.querySelector('.loading-screen');
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 1500);
+            }, 2000);
+
+            // Header scroll effect
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    document.getElementById('header').classList.add('scrolled');
+                } else {
+                    document.getElementById('header').classList.remove('scrolled');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Galeri Pusat Latihan Kemahiran IKHTISAS - Koleksi gambar aktiviti dan program.">
+    <title>Galeri - Pusat Latihan Kemahiran IKHTISAS</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+
+    <!-- CSS Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css">
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #7c3aed;
+            --accent: #06b6d4;
+            --text-dark: #1e293b;
+            --text-light: #f8fafc;
+            --background: #ffffff;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f8fafc;
+            color: var(--text-dark);
+            padding-top: 80px;
+        }
+
+        /* Header Styles */
+        #header {
+            max-height: 100px;
+            padding: 10px 0 !important;
+            margin: 0 !important;
+            overflow: hidden;
+            background: var(--gradient);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        #header.scrolled {
+            padding: 5px 0 !important;
+            background: var(--primary);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-light) !important;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--text-light) !important;
+            margin: 0 10px;
+            padding: 8px 16px !important;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--text-light) !important;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: var(--text-light) !important;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Gallery Header */
+        .gallery-header {
+            background: var(--gradient);
+            color: white;
+            padding: 120px 0 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: -80px;
+        }
+
+        .gallery-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('assets/pattrn.svg');
+            opacity: 0.1;
+            animation: moveBackground 20s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { background-position: 0 0; }
+            100% { background-position: 100% 100%; }
+        }
+
+        /* Gallery Filters */
+        .gallery-filters {
+            padding: 40px 0;
+            background: white;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 80px;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .filter-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .filter-btn {
+            background: transparent;
+            color: var(--text-dark);
+            border: 2px solid rgba(0,0,0,0.1);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--gradient);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Gallery Grid */
+        .gallery-container {
+            padding: 40px 0;
+        }
+
+        .gallery-item {
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        .gallery-item:hover::before {
+            opacity: 0.7;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+            color: white;
+            z-index: 2;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .gallery-caption h5 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .gallery-caption p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 6px solid rgba(255,255,255,0.3);
+            border-top: 6px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: var(--text-dark);
+            color: var(--text-light);
+            padding: 60px 0 30px;
+            margin-top: 60px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .gallery-filters {
+                padding: 20px 0;
+                top: 70px;
+            }
+
+            .filter-btn {
+                padding: 8px 20px;
+                font-size: 0.9rem;
+            }
+
+            .gallery-item img {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+    <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg fixed-top" id="header">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="assets/logo.jpg" alt="IKHTISAS Logo" height="40" class="me-2">
+                IKHTISAS
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">Profil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="program.html">Program</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="gallery.html">Galeri</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="videos.html">Video</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Hubungi Kami</a>
+                    </li>
+                </ul>
+                <a href="daftar.html" class="btn btn-primary rounded-pill px-4 py-2">Daftar Sekarang</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Gallery Header -->
+    <section class="gallery-header">
+        <div class="container">
+            <h1 class="fw-bold mb-3" data-aos="fade-down">Galeri Ikhtisas</h1>
+            <p class="lead" data-aos="fade-up">Koleksi gambar aktiviti dan program di Pusat Latihan Kemahiran Ikhtisas</p>
+        </div>
+    </section>
+
+    <!-- Gallery Filters -->
+    <div class="gallery-filters" data-aos="fade-up">
+        <div class="container">
+            <div class="filter-wrapper">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-th-large"></i> Semua
+                </button>
+                <button class="filter-btn" data-filter="pembelajaran">
+                    <i class="fas fa-book"></i> Pembelajaran
+                </button>
+                <button class="filter-btn" data-filter="kokurikulum">
+                    <i class="fas fa-trophy"></i> Kokurikulum
+                </button>
+                <button class="filter-btn" data-filter="industri">
+                    <i class="fas fa-industry"></i> Industri
+                </button>
+                <button class="filter-btn" data-filter="program">
+                    <i class="fas fa-users"></i> Program
+                </button>
+                <button class="filter-btn" data-filter="graduation">
+                    <i class="fas fa-graduation-cap"></i> Graduasi
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="gallery-container">
+        <div class="container">
+            <div class="row g-4">
+                <!-- 1. PEMBELAJARAN -->
+                <!-- Teori (2 photos) -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="pembelajaran">
+                    <div class="gallery-item">
+                        <a href="assets/gallery/pembelajaran/teori-1.jpg" data-lightbox="gallery" data-title="Kelas Teori Masakan">
+                            <img src="assets/gallery/pembelajaran/teori-1.jpg" alt="Kelas Teori Masakan">
+                            <div class="gallery-overlay">
+                                <div class="gallery-caption">
+                                    <h5>Sesi Penilaian Teori</h5>
+                                    <p>Pelajar menjawab ujian berkaitan teori memasak</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="pembelajaran">
+                    <div class="gallery-item">
+                        <a href="assets/gallery/pembelajaran/teori-2.jpg" data-lightbox="gallery" data-title="Sesi Pembelajaran Teori">
+                            <img src="assets/gallery/pembelajaran/teori-2.jpg" alt="Sesi Pembelajaran Teori">
+                            <div class="gallery-overlay">
+                                <div class="gallery-caption">
+                                    <h5>Kelas Teori Masakan</h5>
+                                    <p>Pembelajaran teori asas masakan dan pemahaman bahan</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+				                <!-- Amali (4 photos) -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="pembelajaran">
+                    <div class="gallery-item">
+                        <a href="assets/gallery/pembelajaran/am-1.jpg" data-lightbox="gallery" data-title="Kelas Amali Masakan">
+                            <img src="assets/gallery/pembelajaran/am-1.jpg" alt="Kelas Amali Masakan">
+                            <div class="gallery-overlay">
+                                <div class="gallery-caption">
+                                    <h5>Kelas Amali Masakan</h5>
+                                    <p>Praktikal penyediaan hidangan tempatan</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="pembelajaran">
+                    <div class="gallery-item">
+                        <a href="assets/gallery/pembelajaran/amali-2.jpg" data-lightbox="gallery" data-title="Praktikal Pastri">
+                            <img src="assets/gallery/pembelajaran/amali-2.jpg" alt="Praktikal Pastri">
+                            <div class="gallery-overlay">
+                                <div class="gallery-caption">
+                                    <h5>Praktikal Pastri</h5>
+                                    <p>Sesi pembuatan pastri dan roti</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="pembelajaran">
+                    <div class="gallery-item">
+                        <a href="assets/gallery/pembelajaran/am-3.jpg" data-lightbox="gallery" data-title="Kelas Amali Masakan Barat">
+                            <img src="assets/gallery/pembelajaran/am-3.jpg" alt="Kelas Amali Masakan Barat">
+                            <div class="gallery-overlay">
+                                <div class="gallery-caption">
+                                    <h5>Kelas Amali Masakan Barat</h5>
+                                    <p>Penyediaan hidangan masakan barat</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="pembelajaran">
+                    <div class="gallery-item">
+                        <a href="assets/gallery/pembelajaran/amali-4.jpg" data-lightbox="gallery" data-title="Praktikal Masakan Asia">
+                            <img src="assets/gallery/pembelajaran/amali-4.jpg" alt="Praktikal Masakan Asia">
+                            <div class="gallery-overlay">
+                                <div class="gallery-caption">
+                                    <h5>Praktikal Masakan Asia</h5>
+                                    <p>Penyediaan hidangan masakan Asia</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Komersial Kitchen (4 photos) -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="pembelajaran">
+                    <div class="gallery-item">
+                        <a href="assets/gallery/pembelajaran/kitchen-1.jpg" data-lightbox="gallery" data-title="Dapur Komersial">
+                            <img src="assets/gallery/pembelajaran/kitchen-1.jpg" alt="Dapur Komersial">
+                            <div class="gallery-overlay">
+                                <div class="gallery-caption">
+                                    <h5>Kenangan</h5>
+                                    <p>"Group photo" yang diambil selepas Final Project Level 2</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="pembelajaran">
+                    <div class="gallery-item">
+                        <a href="assets/gallery/pembelajaran/kitchen-2.jpg" data-lightbox="gallery" data-title="Operasi Dapur">
+                            <img src="assets/gallery/pembelajaran/kitchen-2.jpg" alt="Operasi Dapur">
+                            <div class="gallery-overlay">
+                                <div class="gallery-caption">
+                                    <h5>Projek</h5>
+                                    <p>Pengendalian Final Projek Level 2</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="pembelajaran">
+                    <div class="gallery-item">
+                        <a href="assets/gallery/pembelajaran/kitchen-3.jpg" data-lightbox="gallery" data-title="Penyediaan Masakan">
+                            <img src="assets/gallery/pembelajaran/kitchn-3.jpg" alt="Penyediaan Masakan">
+                            <div class="gallery-overlay">
+                                <div class="gallery-caption">
+                                    <h5>Penyediaan Masakan</h5>
+                                    <p>Penyediaan hidangan dalam kuantiti besar</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+				                <!-- 2. KOKURIKULUM & PERTANDINGAN -->
+                <!-- Kokurikulum (4 photos) -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="kokurikulum">
+                    <div class="gallery-item">
+                        <a href="assets/gallery/kokurikulum/koko-1.jpg" data-lightbox="gallery" data-title="Aktiviti Sukan">
+                            <img src="assets/gallery/kokurikulum/koko-1.jpg" alt="Aktiviti Sukan">
+                            <div class="gallery-overlay">
+                                <div class="gallery-caption">
+                                    <h5>Aktiviti Sukan</h5>
+                                    <p>Program sukan dan rekreasi pelajar</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="kokurikulum">
+                    <div class="gallery-item">
+                        <a href="assets/gallery/kokurikulum/koko-4.jpg" data-lightbox="gallery" data-title="Program Kepimpinan">
+                            <img src="assets/gallery/kokurikulum/kok-4.jpg" alt="Program Kepimpinan">
+                            <div class="gallery-overlay">
+                                <div class="gallery-caption">
+                                    <h5>Program Kepimpinan</h5>
+                                    <p>Latihan kepimpinan pelajar di Lembaga Penduduk dan Pembangunan Keluarga Negara(LPPKN)</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+				
+				<div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="kokurikulum">
+                    <div class="gallery-item">
+                        <a href="assets/gallery/kokurikulum/koko-6.jpg" data-lightbox="gallery" data-title="Program Kepimpinan">
+                            <img src="assets/gallery/kokurikulum/koko-6.jpg" alt="Program Kepimpinan">
+                            <div class="gallery-overlay">
+                                <div class="gallery-caption">
+                                    <h5>Program Sambutan November Bulan Keluarga Kebangsaan</h5>
+                                    <p>Program yang disertai oleh pelatih Ikhtisas atas anjuran Lembaga Penduduk dan Pembangunan Keluarga Negara(LPPKN)</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Pertandingan (4 photos) -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="kokurikulum">
+                    <div class="gallery-item">
+                        <a href="assets/gallery/kokurikulum/pertandingan-1.jpg" data-lightbox="gallery" data-title="Pertandingan Masakan">
+                            <img src="assets/gallery/kokurikulum/pertandingn-1.jpg" alt="Pertandingan Masakan">
+                            <div class="gallery-overlay">
+                                <div class="gallery-caption">
+                                    <h5>Pertandingan Masakan</h5>
+                                    <p>Pertandingan menonjolkan kemahiran memasak</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="kokurikulum">
+                    <div class="gallery-item">
+                        <a href="assets/gallery/kokurikulum/pertandingan-2.jpg" data-lightbox="gallery" data-title="Pertandingan Inovasi">
+                            <img src="assets/gallery/kokurikulum/pertandingan-2.jpg" alt="Pertandingan Inovasi">
+                            <div class="gallery-overlay">
+                                <div class="gallery-caption">
+                                    <h5>Pertandingan Inovasi</h5>
+                                    <p>Pertandingan inovasi makanan(iDEA23)</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="kokurikulum">
+                    <div class="gallery-item">
+                        <a href="assets/gallery/kokurikulum/pertandingan-4.jpg" data-lightbox="gallery" data-title="Kejohanan Masakan">
+                            <img src="assets/gallery/kokurikulum/pertandingan-4.jpg" alt="Kejohanan Masakan">
+                            <div class="gallery-overlay">
+                                <div class="gallery-caption">
+                                    <h5>Kejohanan Masakan</h5>
+                                    <p>Kejohanan masakan peringkat kebangsaan</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+				                <!-- 3. INDUSTRI & INTERNSHIP -->
+
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="industri">
+                    <div class="gallery-item">
+                        <a href="assets/gallery/industri/industri-2.jpg" data-lightbox="gallery" data-title="Latihan Industri">
+                            <img src="assets/gallery/industri/industri-2.jpg" alt="Latihan Industri">
+                            <div class="gallery-overlay">
+                                <div class="gallery-caption">
+                                    <h5>Penilaian Industri</h5>
+                                    <p>Sesi latihan bersama penilai industri</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Internship (2 photos) -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="industri">
+                    <div class="gallery-item">
+                        <a href="assets/gallery/industri/internship-1.jpg" data-lightbox="gallery" data-title="Program Internship">
+                            <img src="assets/gallery/industri/internship-1.jpg" alt="Program Internship">
+                            <div class="gallery-overlay">
+                                <div class="gallery-caption">
+                                    <h5>Kerjasama Industri</h5>
+                                    <p>Pegawai memberikan maklumat berkaitan latihan kepada pelatih Ikhtisas</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+
+                <!-- Lawatan (3 photos) -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="industri">
+                    <div class="gallery-item">
+                        <a href="assets/gallery/industri/lawatan-1.jpg" data-lightbox="gallery" data-title="Lawatan Industri">
+                            <img src="assets/gallery/industri/lawatan-1.jpg" alt="Lawatan Industri">
+                            <div class="gallery-overlay">
+                                <div class="gallery-caption">
+                                    <h5>Lawatan Industri</h5>
+                                    <p>Lawatan ke kilang pemprosesan makanan</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="industri">
+                    <div class="gallery-item">
+                        <a href="assets/gallery/industri/lawatan-2.jpg" data-lightbox="gallery" data-title="Lawatan Pembelajaran">
+                            <img src="assets/gallery/industri/lawatan-2.jpg" alt="Lawatan Pembelajaran">
+                            <div class="gallery-overlay">
+                                <div class="gallery-caption">
+                                    <h5>Lawatan Pembelajaran</h5>
+                                    <p>Lawatan mengelilingi Bandaraya Kuala Lumpur</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="industri">
+                    <div class="gallery-item">
+                        <a href="assets/gallery/industri/lawatan-3.jpg" data-lightbox="gallery" data-title="Lawatan Akademik">
+                            <img src="assets/gallery/industri/lawatan-3.jpg" alt="Lawatan Akademik">
+                            <div class="gallery-overlay">
+                                <div class="gallery-caption">
+                                    <h5>Lawatan Akademik</h5>
+                                    <p>Lawatan ke Kilang Pemprosesan Coklat</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+				                <!-- 4. LAIN-LAIN PROGRAM -->
+                <!-- Kids Program (2 photos) -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="program">
+                    <div class="gallery-item">
+                        <a href="assets/gallery/program/kids-1.jpg" data-lightbox="gallery" data-title="Program Junior Chef">
+                            <img src="assets/gallery/program/kids-1.jpg" alt="Program Junior Chef">
+                            <div class="gallery-overlay">
+                                <div class="gallery-caption">
+                                    <h5>Program Junior Chef</h5>
+                                    <p>Program masakan untuk kanak-kanak</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="program">
+                    <div class="gallery-item">
+                        <a href="assets/gallery/program/adult-2.jpg" data-lightbox="gallery" data-title="Bengkel Masakan Profesional">
+                            <img src="assets/gallery/program/adult-2.jpg" alt="Bengkel Masakan Profesional">
+                            <div class="gallery-overlay">
+                                <div class="gallery-caption">
+                                    <h5>Bengkel Masakan Profesional</h5>
+                                    <p>Kursus intensif masakan profesional</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 5. GRADUATION (5 photos) -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="graduation">
+                    <div class="gallery-item">
+                        <a href="assets/gallery/graduation/grad-1.jpg" data-lightbox="gallery" data-title="Majlis Graduasi">
+                            <img src="assets/gallery/graduation/grad-1.jpg" alt="Majlis Graduasi">
+                            <div class="gallery-overlay">
+                                <div class="gallery-caption">
+                                    <h5>Sesi Fotografi</h5>
+                                    <p>Kenangan bersama graduan-graduan dan pengajar mereka</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="graduation">
+                    <div class="gallery-item">
+                        <a href="assets/gallery/graduation/grad-2.jpg" data-lightbox="gallery" data-title="Penyampaian Sijil">
+                            <img src="assets/gallery/graduation/grad-2.jpg" alt="Penyampaian Sijil">
+                            <div class="gallery-overlay">
+                                <div class="gallery-caption">
+                                    <h5>Sesi Persembahan</h5>
+                                    <p>Sesi persembahan semasa graduasi pelatih Ikhtisas</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="graduation">
+                    <div class="gallery-item">
+                        <a href="assets/gallery/graduation/gra-3.jpg" data-lightbox="gallery" data-title="Graduan Cemerlang">
+                            <img src="assets/gallery/graduation/gr-3.jpg" alt="Graduan Cemerlang">
+                            <div class="gallery-overlay">
+                                <div class="gallery-caption">
+                                    <h5>Penyampaian Sijil</h5>
+                                    <p>Sesi penyampaian sijil kepada graduan</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="graduation">
+                    <div class="gallery-item">
+                        <a href="assets/gallery/graduation/gra-4.jpg" data-lightbox="gallery" data-title="Sesi Fotografi">
+                            <img src="assets/gallery/graduation/gra-4.jpg" alt="Sesi Fotografi">
+                            <div class="gallery-overlay">
+                                <div class="gallery-caption">
+                                    <h5>Graduan Cemerlang</h5>
+                                    <p>Penerima anugerah kecemerlangan akademik </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+				
+				<div class="col-lg-4 col-md-6" data-aos="fade-up" data-category="graduation">
+                    <div class="gallery-item">
+                        <a href="assets/gallery/graduation/gra-5.jpg" data-lightbox="gallery" data-title="Sesi Fotografi">
+                            <img src="assets/gallery/graduation/gra-5.jpg" alt="Sesi Fotografi">
+                            <div class="gallery-overlay">
+                                <div class="gallery-caption">
+                                    <h5>Gambar Kenangan</h5>
+                                    <p>Gambar diambil oleh graduan-graduan Ikhtisas semasa graduasi </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+		    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row py-5">
+                <div class="col-lg-4 mb-4">
+                    <div class="footer-company pe-lg-5">
+                        <img src="assets/logo.jpg" alt="IKHTISAS Logo" height="50" class="mb-4">
+                        <h5 class="text-white mb-3">Pusat Latihan Kemahiran Ikhtisas</h5>
+                        <p class="text-light-gray">Menyediakan program latihan kemahiran berkualiti tinggi untuk membentuk profesional masa hadapan.</p>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5 class="text-white mb-4">Pautan Pantas</h5>
+                    <ul class="footer-links">
+                        <li><a href="profile.html">Profil</a></li>
+                        <li><a href="program.html">Program</a></li>
+                        <li><a href="gallery.html">Galeri</a></li>
+                        <li><a href="videos.html">Video</a></li>
+                        <li><a href="contact.html">Hubungi Kami</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="text-white mb-4">Maklumat Hubungan</h5>
+                    <ul class="footer-links">
+                        <li>
+                            <i class="fas fa-map-marker-alt me-2"></i>
+                            103-2, Lorong Haruan 5/4, Oakland Commerce Square, 70300 Seremban, Negeri Sembilan
+                        </li>
+                        <li>
+                            <i class="fas fa-phone me-2"></i>
+                            <a href="tel:+60123456789">+60 19-663 5250</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope me-2"></i>
+                            <a href="mailto:info@ikhtisas.edu.my">ikhtisasvc@gmail.com</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-white mb-4">Ikuti Kami</h5>
+                    <div class="social-links">
+						<a href="https://wa.me/60196635250" target="_blank" class="social-link">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://www.facebook.com/pusatkemahiranikhtisas.ikhtisas" target="_blank" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="http://tiktok.com/place/Pusat-Latihan-Kemahiran-Ikhtisas-22535865208466561?language=en" target="_blank" class="social-link">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@pusatlatihankemahiranikhti6817" target="_blank" class="social-link">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <hr class="footer-divider">
+            <div class="row py-3">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0 text-light-gray">© 2025 IKHTISAS. Hak Cipta Terpelihara.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-light-gray me-3">Dasar Privasi</a>
+                    <a href="#" class="text-light-gray">Terma & Syarat</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Initialize AOS
+            AOS.init({
+                duration: 1000,
+                once: true,
+                offset: 100
+            });
+
+            // Loading Screen
+            setTimeout(() => {
+                document.querySelector('.loading-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.querySelector('.loading-screen').style.display = 'none';
+                }, 500);
+            }, 1500);
+
+            // Header scroll effect
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    document.getElementById('header').classList.add('scrolled');
+                } else {
+                    document.getElementById('header').classList.remove('scrolled');
+                }
+            });
+
+            // Gallery Filters
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('[data-category]');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    button.classList.add('active');
+
+                    const filter = button.getAttribute('data-filter');
+
+                    galleryItems.forEach(item => {
+                        if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Lightbox Configuration
+            lightbox.option({
+                'resizeDuration': 200,
+                'wrapAround': true,
+                'fadeDuration': 300,
+                'imageFadeDuration': 300
+            });
+        });
+				</script>
+    </body>
+</html>	

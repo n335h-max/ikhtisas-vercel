@@ -1,0 +1,782 @@
+ <!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Maklumat Program Pusat Latihan Kemahiran IKHTISAS - Program latihan kemahiran terbaik.">
+    <title>Program - Pusat Latihan Kemahiran Ikhtisas</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+
+    <!-- CSS Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #7c3aed;
+            --accent: #06b6d4;
+            --text-dark: #1e293b;
+            --text-light: #f8fafc;
+            --background: #ffffff;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            background: #f4f7fc;
+            color: #333;
+        }
+
+        /* Header Fix */
+        #header {
+            max-height: 100px;
+            padding: 10px 0 !important;
+            margin: 0 !important;
+            overflow: hidden;
+            background: var(--gradient);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        #header.scrolled {
+            padding: 5px 0 !important;
+            background: var(--primary);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-light) !important;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--text-light) !important;
+            margin: 0 10px;
+            padding: 8px 16px !important;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--text-light) !important;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: var(--text-light) !important;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-primary {
+            background-color: var(--text-light) !important;
+            color: var(--primary) !important;
+            border: none !important;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: rgba(255, 255, 255, 0.9) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Modern Content Styles */
+        .program-header {
+            padding: 120px 0 160px;
+            background: var(--gradient);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .wave-shape {
+            pointer-events: none;
+        }
+
+        .program-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .program-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .program-card-header {
+            padding: 30px;
+            background: var(--gradient);
+            color: white;
+        }
+
+        .program-level {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .program-duration {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .program-card-body {
+            padding: 30px;
+        }
+
+        .feature-list {
+            margin-bottom: 30px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+
+        .feature-item i {
+            color: var(--primary);
+        }
+
+        .program-pricing {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .price-tag {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .price-tag .amount {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .price-tag .period {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .highlight-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .icon-box {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .icon-box i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .highlight-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0 0;
+        }
+
+        .highlight-list li {
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        /* Additional Programs Styles */
+        .program-special-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .program-special-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .program-special-icon {
+            height: 100%;
+            min-height: 300px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .program-special-icon i {
+            font-size: 5rem;
+            color: white;
+            opacity: 0.9;
+        }
+
+        .program-special-content {
+            padding: 40px;
+        }
+
+        .program-special-content h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .module-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .module-item i {
+            color: var(--primary);
+        }
+
+        .features-list, .program-details {
+            display: grid;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature-item, .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-item i, .detail-item i {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: var(--text-dark);
+            color: var(--text-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(0,0,0,0) 100%);
+            pointer-events: none;
+        }
+
+        .text-light-gray {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-light);
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            color: var(--text-light);
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .program-header {
+                padding: 100px 20px 60px;
+            }
+
+            .program-pricing {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .program-special-icon {
+                min-height: 200px;
+            }
+
+            .program-special-content {
+                padding: 20px;
+            }
+
+            .module-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-company {
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg fixed-top" id="header">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="assets/logo.jpg" alt="IKHTISAS Logo" height="40" class="me-2">
+                IKHTISAS
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">Profil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="program.html">Program</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gallery.html">Galeri</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="videos.html">Video</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Hubungi Kami</a>
+                    </li>
+                </ul>
+                <a href="daftar.html" class="btn btn-primary rounded-pill px-4 py-2">Daftar Sekarang</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Program Header -->
+    <section class="program-header position-relative" data-aos="fade-down">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 mx-auto text-center">
+                    <span class="badge bg-white text-primary px-4 py-2 rounded-pill mb-3" data-aos="fade-up" data-aos-delay="100">Program Kami</span>
+                    <h1 class="display-4 fw-bold mb-4">Maklumat Program</h1>
+                    <p class="lead mb-4">Pusat Latihan Kemahiran Ikhtisas menawarkan program berkualiti yang diiktiraf oleh Jabatan Pembangunan Kemahiran (JPK).</p>
+                    <a href="#programs" class="btn btn-light btn-lg rounded-pill px-5 py-3">
+                        Terokai Program <i class="fas fa-arrow-down ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="wave-shape position-absolute bottom-0 start-0 w-100">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#ffffff" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Featured Programs -->
+    <section id="programs" class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-6" data-aos="fade-up">
+                    <div class="program-card h-100">
+                        <div class="program-card-header">
+                            <span class="program-level">SKM Tahap 2</span>
+                            <h3>Penyediaan dan Penghasilan Makanan{I561-005-2:2022}</h3>
+                            <p class="program-duration"><i class="far fa-clock me-2"></i>9 bulan latihan</p>
+                        </div>
+                        <div class="program-card-body">
+                            <div class="feature-list">
+                                <div class="feature-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Teori & Praktikal Komprehensif</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Persijilan dari Jabatan Pembangunan Kemahiran(JPK)</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Pengiktirafan Industri</span>
+                                </div>
+                            </div>
+                            <div class="program-pricing">
+                                <a href="daftar.html" class="btn btn-primary rounded-pill">Daftar Sekarang</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="program-card h-100">
+                        <div class="program-card-header">
+                            <span class="program-level">SKM Tahap 3</span>
+                            <h3>Operasi Seni Kulinari</h3>
+							<h3>{I561-005-3:2022}</h3>
+                            <p class="program-duration"><i class="far fa-clock me-2"></i>10 bulan latihan</p>
+                        </div>
+                        <div class="program-card-body">
+                            <div class="feature-list">
+                                <div class="feature-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>7 Bulan Teori & Praktikal</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>3 Bulan Latihan Industri</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Peluang Kerjaya Luas</span>
+                                </div>
+                            </div>
+                            <div class="program-pricing">                           
+                                <a href="daftar.html" class="btn btn-primary rounded-pill">Daftar Sekarang</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Module Highlights -->
+    <section class="module-highlights py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="badge bg-primary px-3 py-2 rounded-pill mb-3">Modul Program</span>
+                <h2 class="display-6 fw-bold">Apa Yang Anda Akan Pelajari</h2>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up">
+                    <div class="highlight-card">
+                        <div class="icon-box">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h4>Asas Masakan</h4>
+                        <ul class="highlight-list">
+                            <li>Safety And Hygiene</li>
+                            <li>Teknik Pemotongan</li>
+                            <li>Penyediaan Sos</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="highlight-card">
+                        <div class="icon-box">
+                            <i class="fas fa-concierge-bell"></i>
+                        </div>
+                        <h4>Hidangan Utama</h4>
+                        <ul class="highlight-list">
+                            <li>Masakan Antarabangsa</li>
+                            <li>Hidangan Tempatan</li>
+                            <li>Presentation Skills</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="highlight-card">
+                        <div class="icon-box">
+                            <i class="fas fa-cookie"></i>
+                        </div>
+                        <h4>Pastri & Bakeri</h4>
+                        <ul class="highlight-list">
+                            <li>Asas Pembuatan Roti</li>
+                            <li>Pencuci Mulut</li>
+                            <li>Dekorasi Kek</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional Programs -->
+    <section class="additional-programs py-5">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="badge bg-primary px-3 py-2 rounded-pill mb-3">Program Tambahan</span>
+                <h2 class="display-6 fw-bold">Program-Program Lain</h2>
+            </div>
+
+            <!-- Micro Credential -->
+            <div class="program-special-card mb-4" data-aos="fade-up">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <div class="program-special-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="program-special-content">
+                            <h3>Program Micro Credential</h3>
+                            <p class="lead">Program jangka pendek yang diluluskan oleh JPK untuk membolehkan seseorang mendapat kemahiran untuk memasuki pasaran kerja dalam masa yang singkat serta membantu memantapkan kemahiran yang dimiliki dengan modul yang relevan dengan pasaran kerja semasa.</p>
+                            <div class="module-grid">
+                                <div class="module-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>CU04 - Main Course Production</span>
+                                </div>
+                                <div class="module-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>CU08 - Dessert Production</span>
+                                </div>
+                                <div class="module-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>CU09 - Catering Set-Up Activities</span>
+                                </div>
+                            </div>
+                            <a href="contact.html" class="btn btn-primary rounded-pill mt-4">Hubungi Kami</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PPT -->
+            <div class="program-special-card mb-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <div class="program-special-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="program-special-content">
+                            <h3>Pusat Penilaian Amali (PPT)</h3>
+                            <p class="lead">Pengiktirafan kemahiran melalui pengalaman kerja tanpa latihan formal untuk penganugerahan sijil di bawah Sistem Persijilan Kemahiran Malaysia.</p>
+                            <div class="features-list">
+                                <div class="feature-item">
+                                    <i class="fas fa-star"></i>
+                                    <span>Penilaian berdasarkan pengalaman kerja</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-star"></i>
+                                    <span>Mendapat sijil Tahap 2 atau Tahap 3 yang telah diiktiraf oleh Jabatan Pembangunan Kemahiran(JPK)</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-star"></i>
+                                    <span>Tiada keperluan latihan formal</span>
+                                </div>
+                            </div>
+                            <a href="contact.html" class="btn btn-primary rounded-pill mt-4">Ketahui Lebih Lanjut</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Let's Cook -->
+            <div class="program-special-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <div class="program-special-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="program-special-content">
+                            <h3>Program Let's Cook</h3>
+                            <p class="lead">Kelas masakan eksklusif untuk kanak-kanak dan dewasa.</p>
+                            <div class="program-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>Minimum 10-15 peserta</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-tag"></i>
+                                    <span>Yuran berpatutan</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Jadual fleksibel</span>
+                                </div>
+                            </div>
+                            <a href="contact.html" class="btn btn-primary rounded-pill mt-4">Hubungi Kami</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer mt-5">
+        <div class="container">
+            <div class="row py-5">
+                <div class="col-lg-4 mb-4">
+                    <div class="footer-company pe-lg-5">
+                        <img src="assets/logo.jpg" alt="IKHTISAS Logo" height="50" class="mb-4">
+                        <h5 class="text-white mb-3">Pusat Latihan Kemahiran Ikhtisas</h5>
+                        <p class="text-light-gray">Menyediakan program latihan kemahiran berkualiti tinggi untuk membentuk profesional masa hadapan.</p>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5 class="text-white mb-4">Pautan Pantas</h5>
+                    <ul class="footer-links">
+                        <li><a href="profile.html">Profil</a></li>
+                        <li><a href="program.html">Program</a></li>
+                        <li><a href="gallery.html">Galeri</a></li>
+                        <li><a href="videos.html">Video</a></li>
+                        <li><a href="contact.html">Hubungi Kami</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="text-white mb-4">Maklumat Hubungan</h5>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>103-2, Lorong Haruan 5/4, Oakland Commerce Square, 70300 Seremban, Negeri Sembilan</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:+60123456789">+60 19-663 5250</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:info@ikhtisas.edu.my">ikhtisasvc@gmail.com</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-white mb-4">Ikuti Kami</h5>
+                    <div class="social-links mb-4">
+                        <a href="https://wa.me/60196635250" target="_blank" class="social-link">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://www.facebook.com/pusatkemahiranikhtisas.ikhtisas" target="_blank" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="http://tiktok.com/place/Pusat-Latihan-Kemahiran-Ikhtisas-22535865208466561?language=en" target="_blank" class="social-link">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@pusatlatihankemahiranikhti6817" target="_blank" class="social-link">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <hr class="footer-divider">
+            <div class="footer-bottom py-3">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center text-md-start">
+                        <p class="mb-0 text-light-gray">© 2025 IKHTISAS. Hak Cipta Terpelihara.</p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+                        <a href="#" class="text-light-gray me-3">Dasar Privasi</a>
+                        <a href="#" class="text-light-gray">Terma & Syarat</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Initialize AOS
+            AOS.init({
+                duration: 1000,
+                once: true,
+                offset: 100,
+                easing: 'ease-out-cubic'
+            });
+
+            // Header scroll effect
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    document.getElementById('header').classList.add('scrolled');
+                } else {
+                    document.getElementById('header').classList.remove('scrolled');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
