@@ -29,9 +29,6 @@ body {
 .hidden {
     display: none;
 }
-.navbar {
-    background-color: #dc3545 !important;
-}
 .carousel-inner img {
     height: 400px;
     object-fit: cover;
