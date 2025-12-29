@@ -67,8 +67,8 @@ h6 {
 .navbar-brand {
     font-weight: 800;
     font-size: 1.5rem;
-    background: var(--gradient-primary);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -148,8 +148,8 @@ h6 {
     font-size: 4rem;
     line-height: 1.1;
     margin-bottom: 1.5rem;
-    background: linear-gradient(to right, #fff, #cbd5e1);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
